@@ -1,0 +1,111 @@
+plugins {
+    id 'groovy'
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group = 'com.fox2code'
+version = project['faflaunchmod.version'] as String
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'Fabric'
+        url 'https://maven.fabricmc.net/'
+        content {
+            includeGroup "net.fabricmc"
+        }
+    }
+    maven {
+        name = 'Fox2Code Maven'
+        url 'https://cdn.fox2code.com/maven'
+    }
+}
+
+dependencies {
+    api 'com.google.code.gson:gson:2.10.1'
+    final String ASM_VERSION = project['asm.version']
+    api "org.ow2.asm:asm-util:${ASM_VERSION}"
+    api "org.ow2.asm:asm-commons:${ASM_VERSION}"
+    compileOnly 'org.jetbrains:annotations:24.1.0'
+    compileOnly "com.google.guava:guava:21.0"
+    compileOnly "net.fabricmc:sponge-mixin:${project['fabric-mixin.version']}"
+    compileOnly "io.github.llamalad7:mixinextras-common:${project['mixin-extras.version']}"
+    compileOnly "com.bawnorton.mixinsquared:mixinsquared-common:${project['mixin-squared.version']}"
+    // api "com.fox2code:FoxFlexVer:${project['fox-flex-ver.version']}"
+    compileOnly "com.fox2code:FoxEvents:${project['fox-events.version']}"
+    compileOnly "com.fox2code:ReBuild:${project['rebuild.version']}"
+    compileOnly "io.github.karlatemp:unsafe-accessor:${project['unsafe-accessor.version']}"
+    compileOnly(gradleTestKit())
+    // compileOnly(gradleFixtures()) { transitive = false }
+    String jfxPlat = System.getProperty('os.name')
+            .toLowerCase(Locale.ROOT).contains('win') ? 'win' : 'linux'
+    compileOnly "org.openjfx:javafx-base:21:$jfxPlat"
+    compileOnly "org.openjfx:javafx-graphics:21:$jfxPlat"
+    compileOnly "org.openjfx:javafx-controls:21:$jfxPlat"
+    compileOnly "org.openjfx:javafx-fxml:21:$jfxPlat"
+    compileOnly "org.openjfx:javafx-media:21:$jfxPlat"
+    compileOnly "org.openjfx:javafx-swing:21:$jfxPlat"
+    compileOnly "org.openjfx:javafx-web:21:$jfxPlat"
+    compileOnly 'io.github.sheikah45.fx2j:fx2j-api:0.1.0'
+    compileOnly 'org.springframework:spring-core:6.2.4'
+    compileOnly 'org.springframework:spring-beans:6.2.4'
+    compileOnly 'org.springframework:spring-context:6.2.4'
+
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    withSourcesJar()
+    withJavadocJar()
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'FAFLaunchMod-Version': project['faflaunchmod.version']
+        attributes 'Main-Class': 'com.fox2code.faflaunchmod.launcher.Main'
+        attributes 'Launcher-Agent-Class': 'com.fox2code.faflaunchmod.utils.AgentHelper'
+        attributes 'Premain-Class': 'com.fox2code.faflaunchmod.utils.AgentHelper'
+        attributes 'Can-Set-Native-Method-Prefix': 'true'
+        attributes 'Can-Retransform-Classes': 'true'
+        attributes 'Can-Redefine-Classes': 'true'
+    }
+    from "LICENSE"
+}
+
+sourcesJar {
+    from "LICENSE"
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            from components.java
+            groupId = "com.fox2code"
+            artifactId = "FAFLaunchMod"
+            version = project['faflaunchmod.version']
+            pom {
+                url = 'https://github.com/Fox2Code/FAFLaunchMod'
+            }
+        }
+    }
+}
+
+javadoc.options.tags = [ "reason" ]
+javadoc.options.addStringOption('Xdoclint:none', '-quiet')
+
+
+// Generated code is in another script to make code cleaner.
+apply from: "generate.gradle"

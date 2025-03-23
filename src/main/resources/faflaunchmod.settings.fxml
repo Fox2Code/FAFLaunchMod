@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" styleClass="setting-container"
+          xmlns="http://javafx.com/javafx/11.0.1" fx:id="fafLaunchModSettingsRoot"
+          fx:controller="com.fox2code.faflaunchmod.ui.FAFLaunchModSettingsController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" valignment="TOP" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <Label contentDisplay="RIGHT" maxWidth="1.7976931348623157E308"
+               styleClass="setting-title" text="%faflaunchmod.nameVersion"/>
+        <Label contentDisplay="RIGHT" maxWidth="1.7976931348623157E308"
+               styleClass="setting-description" text="%faflaunchmod.loadedMods"
+               GridPane.rowIndex="1"/>
+        <Button maxWidth="1.7976931348623157E308" minWidth="0.0"
+                onAction="#openModsFolder" text="%faflaunchmod.openModsFolder"
+                GridPane.rowIndex="2"/>
+    </children>
+</GridPane>

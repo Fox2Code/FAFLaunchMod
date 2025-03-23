@@ -1,0 +1,63 @@
+sourceSets {
+    main {
+        java {
+            srcDir 'build/generated/sources/foxloader'
+        }
+    }
+}
+
+// BuildConfig stuff
+final File buildConfigSrc = new File(project.layout.buildDirectory.get().asFile,
+        "generated/sources/foxloader/com/fox2code/faflaunchmod/launcher/BuildConfig.java")
+
+static void generateBuildConfig0(File buildConfigSrc, Project project) {
+    buildConfigSrc.getParentFile().mkdirs()
+    final String FAF_LAUNCH_MOD_VERSION = project['faflaunchmod.version']
+    final String FAF_LAUNCH_MOD_VERSION_MAJOR = FAF_LAUNCH_MOD_VERSION.substring(0, FAF_LAUNCH_MOD_VERSION.indexOf('.'))
+    // Dependencies stuff
+    final String ASM_VERSION = project['asm.version']
+    final String ASM_JAVA_SUPPORT_MAX = project['asm.java-support-max']
+    final String FABRIC_MIXIN_VERSION = project['fabric-mixin.version']
+    final String MIXIN_EXTRAS_VERSION = project['mixin-extras.version']
+    final String MIXIN_SQUARED_VERSION = project['mixin-squared.version']
+    final String REBUILD_VERSION = project['rebuild.version']
+    final String FOX_EVENTS_VERSION = project['fox-events.version']
+    final String FOX_FLEX_VER_VERSION = project['fox-flex-ver.version']
+    final String UNSAFE_ACCESSOR_VERSION = project['unsafe-accessor.version']
+    FileOutputStream fileOutputStream = new FileOutputStream(buildConfigSrc)
+    try {
+        PrintStream printStream = new PrintStream(fileOutputStream)
+        printStream.println("// Auto generated class, do not modify.")
+        printStream.println("package com.fox2code.faflaunchmod.launcher;")
+        printStream.println()
+        printStream.println("public final class BuildConfig {")
+        printStream.println("    private BuildConfig() {}")
+        printStream.println("    public static final String FAF_LAUNCH_MOD_VERSION = \"" + FAF_LAUNCH_MOD_VERSION + "\";")
+        printStream.println("    public static final String FAF_LAUNCH_MOD_VERSION_MAJOR = \"" + FAF_LAUNCH_MOD_VERSION_MAJOR + "\";")
+        printStream.println("    // Dependencies stuff")
+        printStream.println("    public static final String ASM_VERSION = \"" + ASM_VERSION + "\";")
+        printStream.println("    public static final int ASM_JAVA_SUPPORT_MAX = " + ASM_JAVA_SUPPORT_MAX + ";")
+        printStream.println("    public static final String FABRIC_MIXIN_VERSION = \"" + FABRIC_MIXIN_VERSION + "\";")
+        printStream.println("    public static final String MIXIN_EXTRAS_VERSION = \"" + MIXIN_EXTRAS_VERSION + "\";")
+        printStream.println("    public static final String MIXIN_SQUARED_VERSION = \"" + MIXIN_SQUARED_VERSION + "\";")
+        printStream.println("    public static final String REBUILD_VERSION = \"" + REBUILD_VERSION + "\";")
+        printStream.println("    public static final String FOX_EVENTS_VERSION = \"" + FOX_EVENTS_VERSION + "\";")
+        printStream.println("    public static final String FOX_FLEX_VER_VERSION = \"" + FOX_FLEX_VER_VERSION + "\";")
+        printStream.println("    public static final String UNSAFE_ACCESSOR_VERSION = \"" + UNSAFE_ACCESSOR_VERSION + "\";")
+        printStream.println("}")
+    } finally {
+        fileOutputStream.close()
+    }
+}
+
+tasks.register('generateBuildConfig') {
+    doLast {
+        generateBuildConfig0(buildConfigSrc, project)
+    }
+}
+
+if (!buildConfigSrc.exists()) {
+    generateBuildConfig0(buildConfigSrc, project)
+}
+
+compileJava.dependsOn('generateBuildConfig')

@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.fox2code.faflaunchmod.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinAbstractApplicationContext",
+    "MixinFafClientApplication",
+    "MixinFx2jLoader",
+    "MixinIceAdapterImpl",
+    "MixinThemeService"
+  ]
+}

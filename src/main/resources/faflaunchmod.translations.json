@@ -1,0 +1,6 @@
+{
+  "faflaunchmod.name": "FAFLaunch Mod",
+  "faflaunchmod.nameVersion": "FAFLaunch Mod v%FAFLaunchModVersion%",
+  "faflaunchmod.loadedMods": "%FAFLaunchModLoadedModCount% mods successfully loaded",
+  "faflaunchmod.openModsFolder": "Open Mods Folder"
+}
