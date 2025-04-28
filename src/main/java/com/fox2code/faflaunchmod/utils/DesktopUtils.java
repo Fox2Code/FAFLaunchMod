@@ -14,6 +14,12 @@ public class DesktopUtils {
     private static final boolean useDesktopForFile = supportDesktop &&
             Platform.getPlatform() != Platform.LINUX;
 
+    public static void openFolder(File file) {
+        // openFolder() ensure destination is a folder for security purposes
+        if (!file.isDirectory()) return;
+        openFile(file);
+    }
+
     public static void openFile(File file) {
         if (!file.exists()) return;
         if (useDesktopForFile) {

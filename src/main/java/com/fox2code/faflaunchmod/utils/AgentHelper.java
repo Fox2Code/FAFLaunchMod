@@ -2,6 +2,9 @@ package com.fox2code.faflaunchmod.utils;
 
 import java.lang.instrument.Instrumentation;
 
+/**
+ * Used by bytebuddy on the FAFLauncher
+ */
 public final class AgentHelper {
     public static Instrumentation instrumentation;
 

@@ -12,7 +12,7 @@ public class FAFLaunchModSettingsController implements FAFLaunchCompatNodeContro
     public GridPane fafLaunchModSettingsRoot;
 
     public void openModsFolder(ActionEvent actionEvent) {
-        DesktopUtils.openFile(ModLoader.getModsDirectory());
+        DesktopUtils.openFolder(ModLoader.getModsDirectory());
     }
 
     public final void initialize() {}

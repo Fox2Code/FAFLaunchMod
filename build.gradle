@@ -22,35 +22,42 @@ repositories {
     }
 }
 
+configurations {
+    compileOnlyExt
+    compileOnly.extendsFrom(compileOnlyExt)
+    testImplementation.extendsFrom(compileOnlyExt)
+}
+
 dependencies {
     api 'com.google.code.gson:gson:2.10.1'
     final String ASM_VERSION = project['asm.version']
     api "org.ow2.asm:asm-util:${ASM_VERSION}"
     api "org.ow2.asm:asm-commons:${ASM_VERSION}"
-    compileOnly 'org.jetbrains:annotations:24.1.0'
-    compileOnly "com.google.guava:guava:21.0"
-    compileOnly "net.fabricmc:sponge-mixin:${project['fabric-mixin.version']}"
-    compileOnly "io.github.llamalad7:mixinextras-common:${project['mixin-extras.version']}"
-    compileOnly "com.bawnorton.mixinsquared:mixinsquared-common:${project['mixin-squared.version']}"
+    compileOnlyExt 'org.jetbrains:annotations:24.1.0'
+    compileOnlyExt "com.google.guava:guava:21.0"
+    compileOnlyExt "net.fabricmc:sponge-mixin:${project['fabric-mixin.version']}"
+    compileOnlyExt "io.github.llamalad7:mixinextras-common:${project['mixin-extras.version']}"
+    compileOnlyExt "com.bawnorton.mixinsquared:mixinsquared-common:${project['mixin-squared.version']}"
     // api "com.fox2code:FoxFlexVer:${project['fox-flex-ver.version']}"
-    compileOnly "com.fox2code:FoxEvents:${project['fox-events.version']}"
-    compileOnly "com.fox2code:ReBuild:${project['rebuild.version']}"
-    compileOnly "io.github.karlatemp:unsafe-accessor:${project['unsafe-accessor.version']}"
-    compileOnly(gradleTestKit())
+    compileOnlyExt "com.fox2code.FoxEvents:core:${project['fox-events.version']}"
+    compileOnlyExt "com.fox2code:ReBuild:${project['rebuild.version']}"
+    compileOnlyExt "io.github.karlatemp:unsafe-accessor:${project['unsafe-accessor.version']}"
+    compileOnlyExt(gradleTestKit())
     // compileOnly(gradleFixtures()) { transitive = false }
     String jfxPlat = System.getProperty('os.name')
             .toLowerCase(Locale.ROOT).contains('win') ? 'win' : 'linux'
-    compileOnly "org.openjfx:javafx-base:21:$jfxPlat"
-    compileOnly "org.openjfx:javafx-graphics:21:$jfxPlat"
-    compileOnly "org.openjfx:javafx-controls:21:$jfxPlat"
-    compileOnly "org.openjfx:javafx-fxml:21:$jfxPlat"
-    compileOnly "org.openjfx:javafx-media:21:$jfxPlat"
-    compileOnly "org.openjfx:javafx-swing:21:$jfxPlat"
-    compileOnly "org.openjfx:javafx-web:21:$jfxPlat"
-    compileOnly 'io.github.sheikah45.fx2j:fx2j-api:0.1.0'
-    compileOnly 'org.springframework:spring-core:6.2.4'
-    compileOnly 'org.springframework:spring-beans:6.2.4'
-    compileOnly 'org.springframework:spring-context:6.2.4'
+    compileOnlyExt "org.openjfx:javafx-base:21:$jfxPlat"
+    compileOnlyExt "org.openjfx:javafx-graphics:21:$jfxPlat"
+    compileOnlyExt "org.openjfx:javafx-controls:21:$jfxPlat"
+    compileOnlyExt "org.openjfx:javafx-fxml:21:$jfxPlat"
+    compileOnlyExt "org.openjfx:javafx-media:21:$jfxPlat"
+    compileOnlyExt "org.openjfx:javafx-swing:21:$jfxPlat"
+    compileOnlyExt "org.openjfx:javafx-web:21:$jfxPlat"
+    compileOnlyExt 'io.github.sheikah45.fx2j:fx2j-api:0.1.0'
+    compileOnlyExt 'io.github.micheljung:fxstage:0.8.3'
+    compileOnlyExt 'org.springframework:spring-core:6.2.4'
+    compileOnlyExt 'org.springframework:spring-beans:6.2.4'
+    compileOnlyExt 'org.springframework:spring-context:6.2.4'
 
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
