@@ -149,7 +149,8 @@ public final class ModLoader {
                         if (entryName.endsWith(".init.json")) {
                             InitHelper.loadInit(entryName);
                         } else if (entryName.endsWith(".mixins.json")) {
-                            ModLoaderMixin.addMixinConfigurationSafe(file.getName(), entryName);
+                            ModLoaderMixin.addMixinConfigurationSafe(entryName
+                                    .substring(0, entryName.length() - 12).replace('.', '_'), entryName);
                         } else if (entryName.endsWith(".translations.json")) {
                             Function<String, String> modTranslatePatchingMethod = translatePatchingMethod;
                             if (modVersion != null && !modVersion.isEmpty()) {

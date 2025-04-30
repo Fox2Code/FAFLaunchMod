@@ -1,6 +1,7 @@
 package com.fox2code.faflaunchmod.mixins;
 
 import com.fox2code.faflaunchmod.event.ApplicationInitEvent;
+import com.fox2code.faflaunchmod.event.ApplicationStopEvent;
 import com.fox2code.faflaunchmod.event.MainWindowShowedEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,5 +27,11 @@ public class MixinFafClientApplication {
             at = @At("RETURN"), remap = false)
     public void onShowMainWindow(FxStage fxStage, CallbackInfo callbackInfo) {
         new MainWindowShowedEvent(this.applicationContext, fxStage).callEvent();
+    }
+
+    @Inject(method = "stop()V",
+            at = @At("HEAD"), remap = false)
+    public void onStopping(CallbackInfo callbackInfo) {
+        new ApplicationStopEvent().callEvent();
     }
 }
